@@ -1,0 +1,4 @@
+./P1CFDEM/P1CFDEM.C
+./fixedRadHeatFlux/fixedRadHeatFluxFvPatchScalarField.C
+
+LIB = $(CFDEM_LIB_DIR)/libderivedFvPatchFieldsCFDEM

@@ -1,0 +1,13 @@
+- solutions for a compressible flow in a one-dimensional packed bed
+
+- analytical solutions for idealised situations: 
+   - friction or Fanno regime (adiabatic, constant void fraction); 
+   - heated or Rayleigh regime (frictionless, constant void fraction, with heat
+     addition or removal); 
+   - nozzle/diffuser regime (frictionless, adiabatic, but with linear
+     increase/decrease in void fraction). 
+
+- numerical solutions for flow with friction (particle-fluid drag), 
+  non-constant void fraction, and heat addition/removal
+
+- more details in Macak, Goniva and Radl, Powder Technol, 2021 

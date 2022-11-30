@@ -1,0 +1,74 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  1.6                                   |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+application     cfdemSolverBuoyantPimple;
+startTime       0;
+endTime         10000;
+deltaT          1;
+
+writeControl    runTime;
+writeInterval   500;
+
+writeFormat     ascii;
+writePrecision  6;
+writeCompression off;
+
+timeFormat      general;
+timePrecision   6;
+
+
+libs
+(
+   "libderivedFvPatchFieldsCFDEM.so"
+);
+
+
+functions
+{
+  //  probes
+  //  {
+  //      type        probes;
+  //      // Where to load it from
+  //      functionObjectLibs ( "libsampling.so" );
+  //      // Name of the directory for probe data
+  //      name        probes;
+  //      probeLocations
+  //      (
+  //          ($mid $mid 0.0)
+  //          ($mid $mid $len1)
+  //          ($mid $mid $len2)
+  //          ($mid $mid $len3)
+  //          ($mid $mid $len4)
+  //          ($mid $mid $len5)
+  //          ($mid $mid $len6)
+  //          ($mid $mid $len7)
+  //          ($mid $mid $len8)
+  //          ($mid $mid $len9)
+  //          ($mid $mid $lenZ)
+  //      );
+
+  //      // Fields to be probed
+  //      fields ( p U T G gammaRad radHeatFlux );
+
+  //      // Write at same frequency as fields
+  //      writeControl    runTime;//outputTime;
+  //      startTime       $deltaT; // skip probe for time 0
+  //      writeInterval   $writeInterval;
+  //  }
+
+}
+// ************************************************************************* //

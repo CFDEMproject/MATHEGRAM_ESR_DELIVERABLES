@@ -1,0 +1,107 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  1.6                                   |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      fvSolution;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+solvers
+{
+    p_rgh
+    {
+        solver          PCG;
+        preconditioner  DIC;
+        tolerance       1e-04;
+        relTol          0.01;
+    }
+
+    p_rghFinal
+    {
+        $p_rgh;
+        relTol          0;
+    }
+
+    "rho.*"
+    {
+        $p_rgh;
+        tolerance       1e-04;
+        relTol          0;
+    }
+
+    "(U|k|h|e|epsilon|omega|R|nuTilda|T|C)"
+    {
+        solver          PBiCG;
+        preconditioner  DILU;
+        tolerance       1e-04;
+        relTol          0;
+    }
+
+    "(U|k|h|e|epsilon|omega|R|nuTilda|T|C)Final"
+    {
+        $U;
+        relTol          0;
+    }
+
+    "(voidfraction|Us|Ksl|dSmoothing|UsNext|voidfractionNext|sSmoothField|vSmoothField)"
+    {
+        solver          PCG;
+        preconditioner  DIC;
+        tolerance       1e-04;
+        relTol          0;
+    }
+}
+
+PISO
+{
+    nCorrectors     4;
+    nNonOrthogonalCorrectors 0;
+    pRefCell        0;
+    pRefValue       0;
+}
+PIMPLE
+{
+    momentumPredictor yes;
+    nOuterCorrectors 4;
+    nCorrectors     2;
+    nNonOrthogonalCorrectors 0;
+    pRefCell        0;
+    pRefValue       0;
+    
+    residualCotrol
+    {
+        p
+        {
+            relTol          0;
+            tolerance       1e-04;
+        }
+
+        U
+        {
+            relTol          0;
+            tolerance       1e-04;
+        }
+    }
+}
+relaxationFactors
+{
+    fields
+    {
+	    p       0.9;
+    }
+    equations
+    {
+            "U.*"       0.9;
+    }
+}
+
+// ************************************************************************* //

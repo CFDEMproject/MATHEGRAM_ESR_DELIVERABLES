@@ -1,0 +1,32 @@
+sinclude $(GENERAL_RULES)/mplib$(WM_MPLIB)
+sinclude $(RULES)/mplib$(WM_MPLIB)
+
+GIT_VERSION := $(shell git describe --dirty --always --tags)
+PFLAGS+= -DGITVERSION=\"$(GIT_VERSION)\"
+PFLAGS+= -DDEBUGFLAG=\"$(DEBUG)\"
+PFLAGS+= -Dcompre
+PFLAGS+= -DCFDEMWMPROJECTVERSION="$(CFDEM_WM_PROJECT_VERSION)"
+
+include $(CFDEM_ADD_LIBS_DIR)/$(CFDEM_ADD_LIBS_NAME)
+
+EXE_INC = \
+     $(PFLAGS) \
+     $(PINC) \
+    -I$(LIB_SRC)/finiteVolume/lnInclude \
+    -I$(LIB_SRC)/thermophysicalModels/radiation/lnInclude \
+    $(CFDEM_ADD_COMPTURBMOD_PATHS) \
+    -I$(LIB_SRC)/meshTools/lnInclude \
+    -I$(LIB_SRC)/sampling/lnInclude \
+    -I$(LIB_SRC)/functionObjects/field/lnInclude \
+    -I$(CFDEM_OFVERSION_DIR) \
+
+
+LIB_LIBS = \
+     $(PLIBS) \
+    -L$(CFDEM_LIB_DIR) \
+    -lfiniteVolume \
+    -lradiationModels \
+    $(CFDEM_ADD_COMPTURBMOD_LIBS) \
+    -lsampling \
+    -lmeshTools \
+    -lfieldFunctionObjects 

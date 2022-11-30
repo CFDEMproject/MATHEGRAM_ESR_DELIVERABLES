@@ -1,0 +1,3 @@
+cfdemSolverBuoyantPimple.C
+
+EXE=$(CFDEM_APP_DIR)/cfdemSolverBuoyantPimple

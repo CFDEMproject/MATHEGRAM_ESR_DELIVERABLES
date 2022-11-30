@@ -1,0 +1,9 @@
+- verification of radiative heat transfer with P1 model
+
+- time evolution of temperature of a single black particle placed in an
+  isothermal black cavity
+
+- comparison to analytical solution 
+
+- more details in Macak, Goniva, Radl "Predictions of the P1 approximation for
+  radiative heat transfer in heterogeneous granular media" (2022) 

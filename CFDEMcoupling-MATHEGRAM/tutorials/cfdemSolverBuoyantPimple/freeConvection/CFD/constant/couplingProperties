@@ -1,0 +1,98 @@
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  1.4                                   |
+|   \\  /    A nd           | Web:      http://www.openfoam.org               |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+
+
+FoamFile
+{
+    version         2.0;
+    format          ascii;
+
+    root            "";
+    case            "";
+    instance        "";
+    local           "";
+
+    class           dictionary;
+    object          couplingProperties;
+}
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+//===========================================================================//
+// sub-models & settings
+
+modelType B; // A or B
+
+couplingInterval 500;
+voidFractionModel divided;
+locateModel engine;
+meshMotionModel noMeshMotion;
+IOModel basicIO;
+probeModel off;
+dataExchangeModel twoWayMPI;
+averagingModel dense;//dilute;//
+clockModel off;//standardClock;//
+smoothingModel off;
+
+forceModels
+(
+    KochHillDrag
+    Archimedes
+);
+
+momCoupleModels
+(
+    implicitCouple
+);
+
+turbulenceModelType turbulenceProperties;//OFversion30x
+
+//===========================================================================//
+// sub-model properties
+
+implicitCoupleProps
+{
+    velFieldName "U";
+    granVelFieldName "Us";
+    voidfractionFieldName "voidfraction";
+    //KslLimit 0;  // source switched off!!!
+}
+
+KochHillDragProps
+{
+    velFieldName "U";
+    voidfractionFieldName "voidfraction";
+}
+
+DiFeliceDragProps
+{
+    //verbose true;
+}
+
+ArchimedesProps
+{
+    gravityFieldName "g";
+}
+twoWayMPIProps
+{
+    maxNumberOfParticles 10000;
+    liggghtsPath "../DEM/in.liggghts_run";
+}
+
+dividedProps
+{
+    alphaMin 0.4;
+    scaleUpVol 1.0; 
+}
+
+engineProps
+{
+    treeSearch true;
+}
+
+// ************************************************************************* //

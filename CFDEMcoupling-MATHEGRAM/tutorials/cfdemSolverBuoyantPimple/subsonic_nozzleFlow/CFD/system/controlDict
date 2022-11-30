@@ -1,0 +1,60 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  1.6                                   |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+application     cfdemSolverBuoyantPimple;
+startTime       0;
+endTime         2.5e-3;
+deltaT          5e-6;
+
+writeControl    runTime;
+writeInterval   2.5e-4;
+
+writeFormat     ascii;
+writePrecision  6;
+writeCompression off;
+
+timeFormat      general;
+timePrecision   6;
+
+functions
+{
+    #includeFunc mag(U)
+    #includeFunc singleGraph
+
+    probes
+    {
+        type        probes;
+        // Where to load it from
+        functionObjectLibs ( "libsampling.so" );
+        // Name of the directory for probe data
+        name        probes;
+        probeLocations
+        (
+            (3e-3  3e-3  6e-3)
+            (3e-3  3e-3  50e-3)
+        );
+
+        // Fields to be probed
+        fields ( p U T );
+
+        // Write at same frequency as fields
+        writeControl    runTime;//outputTime;
+        startTime       $deltaT; // skip probe for time 0
+        writeInterval   2.5e-4;
+    }
+}
+// ************************************************************************* //

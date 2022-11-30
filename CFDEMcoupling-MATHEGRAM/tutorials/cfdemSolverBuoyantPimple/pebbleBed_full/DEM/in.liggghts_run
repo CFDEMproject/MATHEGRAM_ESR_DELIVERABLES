@@ -1,0 +1,84 @@
+echo            both
+log             ../DEM/log.liggghts
+
+#######################################################
+# variables                                           #
+#######################################################
+variable r0 equal 0.03
+#######################################################
+
+# read packed bed and calc convective heat transfer
+atom_style      granular 
+atom_modify     map array
+boundary        m m m 
+newton          off
+
+communicate     single vel yes
+
+units           si
+processors      1 1 2
+
+# read the restart file
+read_restart    ../DEM/post/restart/particles.restart
+
+neighbor        ${r0} bin
+neigh_modify    delay 0 once yes check no 
+soft_particles  yes
+thermo_modify lost ignore
+
+# Material properties required for granular pair styles
+fix   m1 all property/global youngsModulus peratomtype 4.8e6 4.8e6 4.8e6
+fix   m2 all property/global poissonsRatio peratomtype 0.2 0.2 0.2 
+fix   m3 all property/global coefficientRestitution &
+      peratomtypepair 3 0.3 0.3 0.3 0.3 0.3 0.3 0.3 0.3 0.3
+fix   m4 all property/global coefficientFriction &
+      peratomtypepair 3 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5
+
+
+# pair style
+pair_style  gran model hertz tangential history
+pair_coeff  * *
+
+# timestep, gravity
+timestep    1
+fix         gravi all gravity 9.81 vector 0. 0. -1.
+
+# walls
+fix     xwalls1 all wall/gran model hertz tangential history primitive &
+        type 2 xplane 0 temperature 1073
+fix     xwalls2 all wall/gran model hertz tangential history primitive &
+        type 3 xplane 0.42 temperature 436.2
+fix     ywalls1 all wall/gran model hertz tangential history primitive &
+        type 1 yplane 0
+fix     ywalls2 all wall/gran model hertz tangential history primitive & 
+        type 1 yplane 0.42
+fix     zwalls1 all wall/gran model hertz tangential history primitive &
+        type 1 zplane 0
+fix     zwalls2 all wall/gran model hertz tangential history primitive &
+        type 1 zplane 0.43
+
+# heat transfer
+fix     thermalProps all property/thermal &
+        thermalConductivity 230.01 -0.3179 1.403e-4 6.566e-8 -7.255e-11 1.595e-14
+
+fix     ftco all property/global thermalConductivity peratomtype 0. 63.05 126.1
+fix     ftca all property/global thermalCapacity peratomtype 710. 710. 710. 
+fix     fyo all property/global youngsModulusOriginal peratomtype 11.5e9 11.5e9 11.5e9
+
+fix     heattransfer all heat/gran initial_temperature 300 area_correction yes
+
+# cfd coupling
+fix     cfd all couple/cfd couple_every 1 mpi
+fix     cfd2 all couple/cfd/force
+fix     cfd3 all couple/cfd/radiation T0 300
+
+thermo_style    custom step atoms ke f_heattransfer vol
+thermo          10
+thermo_modify   lost ignore norm no
+
+dump    dmp all custom 1000 ../DEM/post/dump*.liggghts_run &
+        x y z f_Temp[0] f_heatFlux[0]  &
+        f_directionalHeatFlux[1] &
+        f_directionalHeatFlux[2] f_directionalHeatFlux[3]
+
+run     0

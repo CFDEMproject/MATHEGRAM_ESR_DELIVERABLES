@@ -1,0 +1,10 @@
+- verification of a compressible flow solver for a 'friction' or 'Fanno' regime
+
+- one-dimensional fixed bed, with uniform void fraction
+
+- friction stemming from drag forces
+
+- adiabatic condictions
+
+- fluid pressure, velocity, temperature, and density compared to analytic 
+  solution (Macak, Goniva and Radl, Powder Technol, 2021) 

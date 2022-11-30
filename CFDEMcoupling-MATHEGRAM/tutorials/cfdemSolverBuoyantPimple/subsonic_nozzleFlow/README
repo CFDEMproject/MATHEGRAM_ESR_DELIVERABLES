@@ -1,0 +1,10 @@
+- verification of a compressible flow solver in 'nozzle' regime
+
+- one-dimensional fixed bed, with linear increase in void fraction
+
+- adiabatic condictions
+
+- small friction force, stemming from drag forces
+
+- fluid pressure, velocity, temperature, and density compared to numerical  
+  solution (Macak, Goniva and Radl, Powder Technol, 2021) 

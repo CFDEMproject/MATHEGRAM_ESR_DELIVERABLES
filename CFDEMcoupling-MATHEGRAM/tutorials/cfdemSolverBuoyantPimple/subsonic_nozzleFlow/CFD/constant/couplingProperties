@@ -1,0 +1,99 @@
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  1.4                                   |
+|   \\  /    A nd           | Web:      http://www.openfoam.org               |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version         2.0;
+    format          ascii;
+    class           dictionary;
+    object          couplingProperties;
+}
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+//===========================================================================//
+// sub-models & settings
+
+modelType           "B";
+couplingInterval    1;
+
+voidFractionModel   centre;
+locateModel         engine;
+meshMotionModel     noMeshMotion;
+IOModel             basicIO;
+probeModel          off;
+dataExchangeModel   twoWayMPI;
+averagingModel      dense;
+clockModel          off;
+smoothingModel      off;
+
+forceModels
+(
+    KochHillDrag
+    LaEuScalarTemp
+    Archimedes
+);
+
+momCoupleModels
+(
+    implicitCouple
+);
+
+turbulenceModelType turbulenceProperties;
+
+//===========================================================================//
+// sub-model properties
+implicitCoupleProps
+{
+    velFieldName "U";
+    granVelFieldName "Us";
+    voidfractionFieldName "voidfraction";
+    //KslLimit 0;  // source switched off!!!
+}
+
+LaEuScalarTempProps
+{
+    tempFieldName "T";
+    partTempName "Temp";
+    partHeatFluxName "convectiveHeatFlux";
+    lambda 0; // fluid conductivity (cp*mu/Pr)
+    Cp 1007;
+    compressible true;
+    voidfractionFieldName "voidfraction";
+    velFieldName "U";
+}
+
+KochHillDragProps
+{
+    velFieldName "U";
+    voidfractionFieldName "voidfraction";
+}
+
+ArchimedesProps
+{
+    gravityFieldName "g";
+}
+
+twoWayMPIProps
+{
+    maxNumberOfParticles 10000;
+    liggghtsPath "../DEM/in.liggghts_run";
+}
+
+engineProps
+{
+    treeSearch true;
+}
+
+centreProps
+{
+    alphaMin 0.4;
+    voidfractionFieldName "voidfraction";
+}
+
+
+// ************************************************************************* //

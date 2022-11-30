@@ -1,0 +1,10 @@
+- verification of a compressible flow solver in 'heated' or 'Rayleigh' regime
+
+- one-dimensional fixed bed, with constant void fraction
+
+- heat source imposed at the particle phase
+
+- small friction force, stemming from drag forces
+
+- fluid pressure, velocity, temperature, and density compared to numerical  
+  solution (Macak, Goniva and Radl, Powder Technol, 2021) 

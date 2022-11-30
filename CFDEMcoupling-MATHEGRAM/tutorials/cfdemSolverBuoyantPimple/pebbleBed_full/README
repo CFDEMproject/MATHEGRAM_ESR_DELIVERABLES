@@ -1,0 +1,16 @@
+- verification of conductive and radiative heat transfer in a small pebble bed
+
+- P1 used as a radiaton model
+
+- temperature-sensitive thermal conductivity of the pebbles
+
+- vacuum conditions
+
+- temperature profile tested against a view-factor--based numerical solution
+  (Tausendschoen and Radl, Int. J. Heat Mass Transfer, 2021)
+  and experimental measurements (De Beer, 2014)
+
+- pseudo-scattering used for the removal of heat flux fluctuations
+
+- more details in Macak, Goniva, Radl "Predictions of the P1 approximation for 
+  radiative heat transfer in heterogeneous granular media" (2022)

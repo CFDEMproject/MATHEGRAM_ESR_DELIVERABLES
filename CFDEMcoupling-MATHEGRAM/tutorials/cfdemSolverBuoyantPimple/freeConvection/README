@@ -1,0 +1,6 @@
+- validation of free convection for fluid flow 
+
+- no particle contribution
+
+- Nusselt number tested against experimental measurements from 
+  Corvaro and Paroncini, Appl. Therm. Eng., 2008

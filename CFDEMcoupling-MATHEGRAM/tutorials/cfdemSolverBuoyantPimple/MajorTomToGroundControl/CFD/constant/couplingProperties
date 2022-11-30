@@ -1,0 +1,113 @@
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  1.4                                   |
+|   \\  /    A nd           | Web:      http://www.openfoam.org               |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+
+
+FoamFile
+{
+    version         2.0;
+    format          ascii;
+
+    root            "";
+    case            "";
+    instance        "";
+    local           "";
+
+    class           dictionary;
+    object          couplingProperties;
+}
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+
+//===========================================================================//
+// sub-models & settings
+
+solveFlow           true;
+modelType           "B";
+couplingInterval    1;
+
+voidFractionModel   centre;
+locateModel         engine;
+meshMotionModel     noMeshMotion;
+IOModel             basicIO;
+probeModel          off;
+dataExchangeModel   twoWayMPI;
+averagingModel      dilute;
+clockModel          off;
+smoothingModel      off;
+
+forceModels
+(
+    KochHillDrag
+    LaEuScalarRadiation
+    Archimedes
+);
+
+momCoupleModels
+(
+    implicitCouple
+);
+
+turbulenceModelType turbulenceProperties;
+
+//===========================================================================//
+// sub-model properties
+
+LaEuScalarRadiationProps
+{
+    partTempName "Temp";
+    partHeatFluxName "radiativeHeatFlux";
+    Qabs 1; 
+    Qsca 0; 
+    useBrewsterCorrection false; 
+    verbose true;
+    interpolation true;
+}
+
+implicitCoupleProps
+{
+    velFieldName "U";
+    granVelFieldName "Us";
+    voidfractionFieldName "voidfraction";
+    //KslLimit 0;  // source switched off!!!
+}
+
+explicitCoupleProps
+{
+    //fLimit (0 0 0);
+}
+
+KochHillDragProps
+{
+    velFieldName "U";
+    voidfractionFieldName "voidfraction";
+}
+
+ArchimedesProps
+{
+    gravityFieldName "g";
+}
+
+twoWayMPIProps
+{
+    maxNumberOfParticles 10000;
+    liggghtsPath "../DEM/in.liggghts_run";
+}
+
+centreProps
+{
+    alphaMin 0.4;
+    voidfractionFieldName "voidfraction";
+}
+
+engineProps
+{
+    treeSearch true;
+}
+
+// ************************************************************************* //

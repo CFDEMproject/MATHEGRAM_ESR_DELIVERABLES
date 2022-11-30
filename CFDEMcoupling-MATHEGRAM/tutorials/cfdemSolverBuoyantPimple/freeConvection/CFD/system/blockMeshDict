@@ -1,0 +1,116 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  5                                     |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+convertToMeters 0.001;
+
+vertices
+(
+    // floor and heat exchanger
+    ( 0  0  0)    //  0
+    (15  0  0)    //  1
+    (25  0  0)    //  2
+    (50  0  0)    //  3
+
+    // ceiling
+    ( 0 50  0)    //  4
+    (15 50  0)    //  5
+    (25 50  0)    //  6
+    (50 50  0)    //  7
+
+    ( 0  0  1)    //  8
+    (15  0  1)    //  9
+    (25  0  1)    // 10 
+    (50  0  1)    // 11
+    ( 0 50  1)    // 12
+    (15 50  1)    // 13
+    (25 50  1)    // 14
+    (50 50  1)    // 15
+);
+
+blocks
+(
+    hex ( 0  1  5  4  8  9 13 12) (15 50 1) simpleGrading (1 1 1)
+    hex ( 1  2  6  5  9 10 14 13) (10 50 1) simpleGrading (1 1 1)
+    hex ( 2  3  7  6 10 11 15 14) (25 50 1) simpleGrading (1 1 1)
+);
+
+edges
+(
+);
+
+boundary
+(
+    floor
+    {
+        type wall;
+        faces
+        (
+             (0 1  9  8)
+             (2 3 11 10)
+        );
+    }
+
+    heatExchanger
+    {
+        type wall;
+        faces
+        (
+            (1 2 10 9)
+        );
+    }
+
+    ceiling
+    {
+        type wall;
+        faces
+        (
+            (5 4 12 13)
+            (6 5 13 14)
+            (7 6 14 15)
+        );
+    }
+
+    leftAndRight
+    {
+        type wall;
+        faces
+        (
+            (0 8 12  4)
+            (3 7 15 11)
+        );
+    }
+
+    frontAndBack
+    {
+        type empty;
+        faces
+        (
+            (0 4 5 1)
+            (1 5 6 2)
+            (2 6 7 3)
+
+            ( 9 13 12  8)
+            (10 14 13  9)
+            (11 15 14 10)
+        );
+    }
+);
+
+mergePatchPairs
+(
+);
+
+// ************************************************************************* //

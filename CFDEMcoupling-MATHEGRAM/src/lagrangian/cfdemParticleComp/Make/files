@@ -1,0 +1,12 @@
+path = ../cfdemParticle
+forceModels = $(path)/subModels/forceModel
+absorptionEmissionModels = $(path)/subModels/absorptionEmissionModels
+scatterModels = $(path)/subModels/scatterModel
+
+$(forceModels)/LaEuScalarTemp/LaEuScalarTemp.C
+$(forceModels)/LaEuScalarRadiation/LaEuScalarRadiation.C
+$(absorptionEmissionModels)/absorptionEmissionCFDEM/absorptionEmissionCFDEM.C
+$(scatterModels)/constantScatterCFDEM/constantScatterCFDEM.C
+$(scatterModels)/pseudoScatterCFDEM/pseudoScatterCFDEM.C
+
+LIB = $(CFDEM_LIB_DIR)/lib$(CFDEM_LIB_COMP_NAME)

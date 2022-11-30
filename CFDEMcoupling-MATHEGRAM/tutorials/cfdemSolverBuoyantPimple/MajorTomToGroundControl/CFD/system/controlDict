@@ -1,0 +1,70 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  1.6                                   |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+// characteristic time for particle cooling: 
+// tau = (rho*cp*dp) / (6*4*sigma*T0^3)
+// rho - particle density
+// cp - particle heat capacity
+// dp - particle diameter
+// sigma = 5.67e-8 - Stefan-Boltzmann constant
+// T0 - enclosure temperature
+
+application     cfdemSolverBuoyantPimple;
+startFrom       startTime;
+startTime       0;
+endTime         2400; // 8 x tau
+deltaT          15;   // tau/20
+
+writeControl    runTime;
+writeInterval   15;
+
+writeFormat     ascii;
+writePrecision  6;
+writeCompression off;
+
+timeFormat      general;
+timePrecision   6;
+
+libs
+(
+   "libderivedFvPatchFieldsCFDEM.so"
+);
+
+functions
+{
+    probes
+    {
+        type        probes;
+        // Where to load it from
+        functionObjectLibs ( "libsampling.so" );  
+        // Name of the directory for probe data
+        name        probes;
+        probeLocations
+        (
+            (0 0 0)
+        );
+
+        // Fields to be probed
+        fields (T G);
+
+        // Write at same frequency as fields
+        writeControl    timeStep;//outputTime;
+        startTime       $deltaT; // skip probe for time 0
+        writeInterval   1;
+    }
+}
+// ************************************************************************* //

@@ -1,0 +1,14 @@
+- verification of an imposed radiative heat flux boundary condition
+
+- P1 approximation as a radiation model
+
+- polydisperse random particle packing placed between two isothermal black
+  plates
+
+- pseudo-scattering used for removal of heat flux oscillations
+
+- temperature profile tested against an analytical solution
+  (Heaslet and Warming, Int. J. Heat Mass Transfer, 1965)
+
+- more details in Macak, Goniva, Radl "Predictions of the P1 approximation for
+  radiative heat transfer in heterogeneous granular media" (2022)
