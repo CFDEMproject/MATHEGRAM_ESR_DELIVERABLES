@@ -1,0 +1,9 @@
+baseline - no oscillation removal
+
+pseudoScatter10 - pseudo-scattering with 10% extinction coefficent
+pseudoScatter25 - ... with 25% extinction coefficient
+
+smoothing_dp - smoothing length 1 particle diamtere
+smoothing_3dp - ... 3 particle diameters
+
+mesh sizes: 10, 20, 50 and 100 cells per length 

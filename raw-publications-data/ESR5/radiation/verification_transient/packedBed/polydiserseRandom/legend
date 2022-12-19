@@ -1,0 +1,9 @@
+10 - 10 cells per length
+20 - ...
+50 - ...
+100 - ...
+
+10beta - 20 cells per length + pseudoscattering of 10% extinction coeff
+smooth_2dp - 20 cells per length - smoothing length = 2 particle diameters
+
+timestep01 - smaller timestep

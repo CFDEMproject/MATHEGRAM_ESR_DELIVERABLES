@@ -1,0 +1,9 @@
+particle diameter ratio: 
+05   - dp1/dp2 = 0.5
+075  - 0.75
+09   - 0.9
+1-11 - 1.11
+1-33 - 1.33
+2    - 2.0
+
+mesh data for case dp1/dp2
