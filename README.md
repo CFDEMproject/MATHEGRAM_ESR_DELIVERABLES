@@ -19,14 +19,14 @@ alpha, extent of reaction.
 ### Heat generation due to biological activity
 
 Heat generation in biological material is mainly triggered by moisture content.
-A DEM model for swelling is developed. 
+A DEM model for swelling due to water absorption is developed. 
 
 - [Swelling example case](https://github.com/CFDEMproject/MATHEGRAM_ESR_DELIVERABLES/tree/main/LIGGGHTS-MATHEGRAM/examples/LIGGGHTS/Tutorials_public/swelling)
 
 ### Thermal radiation model
 
 At high temperatures, radiation becomes a dominant mode of heat transfer. A
-CFD-DEM model using P1 approximation is developed. 
+CFD-DEM model using P1 approximation for radiative heat exchange is developed. 
 
 Examples: 
 - [Single particle cooling](https://github.com/CFDEMproject/MATHEGRAM_ESR_DELIVERABLES/CFDEMcoupling-MATHEGRAM/tutorials/cfdemSolverBuoyantPimple/MajorTomToGroundControl)
